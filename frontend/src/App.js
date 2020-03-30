@@ -1,9 +1,10 @@
 import React from 'react';
+import Routes from './routes';
 
-const App = () => {
-  return (
-    <h1>Be The Hero</h1>
-  );
-}
+const App = () => (
+  <>
+    <Routes />
+  </>
+);
 
 export default App;
