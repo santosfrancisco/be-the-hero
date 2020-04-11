@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg'
-import { Link } from 'react-router-dom';
 import { LinkButton } from '../Button';
 import { FiPower } from 'react-icons/fi';
 
@@ -29,7 +28,9 @@ const Header = ({ className }) => {
     <header className={className}>
       <Image src={logo} alt="Be the hero" />
       <span>Bem vinda, APAD</span>
-      <LinkButton to="/incidents/new">Cadastrar novo caso</LinkButton>
+      <LinkButton to="/incidents/new">
+        Cadastrar novo caso
+      </LinkButton>
       <LogoutButton type="button">
         <FiPower size={24} color="#E02041" />
       </LogoutButton>
