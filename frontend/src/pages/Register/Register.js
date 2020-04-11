@@ -34,7 +34,7 @@ const Register = () => {
           <FormWrapper>
             <form>
               <Input placeholder="Nome da ONG" />
-              <Input placeholder="Email" />
+              <Input type="email" placeholder="Email" />
               <Input placeholder="WhatsApp" />
               <Input width="80%" placeholder="Cidade" />
               <Input width="20%" placeholder="UF" />
