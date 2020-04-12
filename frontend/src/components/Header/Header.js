@@ -14,7 +14,7 @@ const Header = ({ className }) => {
   const ongName = localStorage.getItem('ongName')
 
   const handleLogout = () => {
-    localStorage.clar()
+    localStorage.clear()
     history.push('/')
   }
 

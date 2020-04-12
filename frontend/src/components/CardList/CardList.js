@@ -6,8 +6,8 @@ const CardList = ({ items, onDelete }) => {
   return (
     <Row>
       {items.map(incident => (
-        <Col xs={4} sm={4}>
-          <Card key={incident.id} onDelete={onDelete} {...incident} />
+        <Col key={incident.id} xs={4} sm={4}>
+          <Card onDelete={onDelete} {...incident} />
         </Col>
         )
       )}

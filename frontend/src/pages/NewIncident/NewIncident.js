@@ -23,6 +23,8 @@ const NewIncident = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [value, setValue] = useState('')
+
+  const ongId = localStorage.getItem('ongId');
   
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -33,7 +35,11 @@ const NewIncident = () => {
     };
 
     try {
-      await api.post('/incidents', ongData);
+      await api.post('/incidents', ongData, {
+        headers: {
+          Authorization: ongId,
+        }
+      });
       history.push('/profile')
     } catch (error) {
       alert('Ocorreu um erro. Tente novamente.')
@@ -73,7 +79,7 @@ const NewIncident = () => {
                 onChange={e => setValue(e.target.value)}
               />
               <ButtonsWrapper>
-                <SecondaryButton onClick={() => console.log('cancel')}>
+                <SecondaryButton onClick={() => history.goBack()}>
                   Cancelar
                 </SecondaryButton>
                 <Button type="submit">
