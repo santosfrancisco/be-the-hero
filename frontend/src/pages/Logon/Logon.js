@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 import { Col } from 'react-awesome-styled-grid';
 import Input from '../../components/Input';
@@ -16,17 +17,37 @@ import {
 import heroesImg from '../../assets/heroes.png';
 import logo from '../../assets/logo.svg'
 
+import api from '../../services/api';
+
 const Logon = () => {
+  const history = useHistory();
+  const [id, setId] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await api.post('/sessions', { id });
+      localStorage.setItem('ongId', id);
+      localStorage.setItem('ongName', data.name)
+      history.push('/profile')
+    } catch (error) {
+      alert('Erro no login. Tente novamente.')
+    }
+  }
   return (
     <Container>
       <Row>
         <Col xs={4} sm={3} justify="center">
           <FormWrapper>
             <Logo src={logo} alt="Be The Hero" />
-            <form>
+            <form onSubmit={handleLogin}>
               <H1>Faça seu logon</H1>
-              <Input placeholder="Sua ID" />
-              <Button type="submit" onClick={() => console.log('submit')}>
+              <Input
+                placeholder="Sua ID"
+                value={id}
+                onChange={e => setId(e.target.value)}
+              />
+              <Button type="submit">
                 Entrar
               </Button>
               <Link to="/register">

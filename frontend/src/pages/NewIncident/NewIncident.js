@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Col } from 'react-awesome-styled-grid';
+import api from '../../services/api';
 import Input, { Textarea } from '../../components/Input';
 import Button, { SecondaryButton } from '../../components/Button';
 import { H1 } from '../../components/Headings';
@@ -17,6 +19,26 @@ import {
 import logo from '../../assets/logo.svg'
 
 const NewIncident = () => {
+  const history = useHistory();
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [value, setValue] = useState('')
+  
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const ongData = {
+      title,
+      description,
+      value
+    };
+
+    try {
+      await api.post('/incidents', ongData);
+      history.push('/profile')
+    } catch (error) {
+      alert('Ocorreu um erro. Tente novamente.')
+    }
+  }
   return (
     <Container>
       <Row>
@@ -33,15 +55,28 @@ const NewIncident = () => {
         </Col>
         <Col xs={4} sm={5} justify="center">
           <FormWrapper>
-            <form>
-              <Input placeholder="Título do caso" />
-              <Textarea rows="6" placeholder="Descrição" />
-              <Input placeholder="Valor em reais" />
+            <form onSubmit={handleRegister}>
+              <Input
+                placeholder="Título do caso"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+              <Textarea
+                rows="6"
+                placeholder="Descrição"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+              />
+              <Input
+                placeholder="Valor em reais"
+                value={value}
+                onChange={e => setValue(e.target.value)}
+              />
               <ButtonsWrapper>
                 <SecondaryButton onClick={() => console.log('cancel')}>
                   Cancelar
                 </SecondaryButton>
-                <Button type="submit" onClick={() => console.log('submit')}>
+                <Button type="submit">
                   Cadastrar
                 </Button>
               </ButtonsWrapper>

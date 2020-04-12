@@ -2,22 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import { FiTrash2 } from 'react-icons/fi'
 
-const Card = ({ className }) => (
+const Card = ({ className, onDelete, ...incident}) => (
   <div className={className}>
     <strong>CASO:</strong>
-    <p>Caso 1 teste</p>
+    <p>{incident.title}</p>
 
     <strong>DESCRIÇÃO:</strong>
-    <p>Descrição teste</p>
+    <p>{incident.description}</p>
 
     <strong>VALOR:</strong>
-    <p>R$ 200,00</p>
+    <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
 
     <button
       className="card__btn-trash"
       type="button"
     >
-      <FiTrash2 size={20} color="#a8a8b3"/>
+      <FiTrash2 onClick={() => onDelete(incident.id)} size={20} color="#a8a8b3"/>
     </button>  
   </div>
 );

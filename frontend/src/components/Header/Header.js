@@ -1,37 +1,31 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import logo from '../../assets/logo.svg'
 import { LinkButton } from '../Button';
 import { FiPower } from 'react-icons/fi';
-
-const Image = styled.img`
-  height: 60px;
-`;
-
-const LogoutButton = styled.button`
-  height: 60px;
-  width: 60px;
-  background: transparent;
-  border-radius: 8px;
-  border: 1.5px solid #DCDCE6;
-  font-weight: bold;
-  transition: filter .2s;
-  margin-left: 16px;
-
-  &:hover {
-    filter: brightness(90%);
-  }
-`;
+import {
+  Image,
+  LogoutButton,
+} from './styles';
 
 const Header = ({ className }) => {
+  const history = useHistory();
+  const ongName = localStorage.getItem('ongName')
+
+  const handleLogout = () => {
+    localStorage.clar()
+    history.push('/')
+  }
+
   return (
     <header className={className}>
       <Image src={logo} alt="Be the hero" />
-      <span>Bem vinda, APAD</span>
+      <span>Bem vinda, {ongName}</span>
       <LinkButton to="/incidents/new">
         Cadastrar novo caso
       </LinkButton>
-      <LogoutButton type="button">
+      <LogoutButton onClick={handleLogout} type="button">
         <FiPower size={24} color="#E02041" />
       </LogoutButton>
     </header>
